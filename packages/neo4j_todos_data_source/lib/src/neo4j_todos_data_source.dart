@@ -12,7 +12,6 @@ class Neo4jTodosDataSource implements TodosDataSource {
     );
   }
 
-
   @override
   Future<Todo> create(Todo todo) async {
     final id = const Uuid().v4();
@@ -30,9 +29,11 @@ class Neo4jTodosDataSource implements TodosDataSource {
 
   @override
   Future<Todo?> read(String id) async {
-    final todo = await NeoClient().findAllNodesByProperties(propertiesToCheck: [
-      PropertyToCheck(key: 'id', comparisonOperator: '=', value: id)
-    ]);
+    final todo = await NeoClient().findAllNodesByProperties(
+      propertiesToCheck: [
+        PropertyToCheck(key: 'id', comparisonOperator: '=', value: "'$id'")
+      ],
+    );
     return Todo.fromJson(todo.first.properties);
   }
 
