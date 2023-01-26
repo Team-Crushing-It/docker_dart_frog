@@ -6,7 +6,10 @@ import 'package:uuid/uuid.dart';
 class Neo4jTodosDataSource implements TodosDataSource {
   /// initialization. Defaults to port 7474
   Neo4jTodosDataSource() {
-    NeoClient.withoutCredentialsForTest(databaseAddress: 'http://0.0.0.0:7474/');
+    NeoClient.withAuthorization(
+      username: 'neo4j',
+      password: '123456',
+    );
   }
 
   final _db = NeoClient();
