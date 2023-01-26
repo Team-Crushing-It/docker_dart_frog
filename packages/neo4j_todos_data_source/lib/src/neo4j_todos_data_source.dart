@@ -8,7 +8,8 @@ class Neo4jTodosDataSource implements TodosDataSource {
   Neo4jTodosDataSource() {
     NeoClient.withAuthorization(
       username: 'neo4j',
-      password: '123456',
+      password: 'neo4j',
+      databaseAddress:'http://neo4j:test@neo4j:7474'
     );
   }
 
