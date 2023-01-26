@@ -10,6 +10,8 @@ dependencies:
   dart_frog: ^0.3.0
   in_memory_todos_data_source:
     path: packages/in_memory_todos_data_source
+  neo4j_todos_data_source:
+    path: packages/neo4j_todos_data_source
   todos_data_source:
     path: packages/todos_data_source
 

@@ -224,6 +224,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+  neo4driver:
+    dependency: transitive
+    description:
+      name: neo4driver
+      sha256: "95d7f9a74fc140a562caa11481a3ae494b374c756fbc418c830dafa6e8fbc1ce"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
+  neo4j_todos_data_source:
+    dependency: "direct main"
+    description:
+      path: "packages/neo4j_todos_data_source"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   node_preamble:
     dependency: transitive
     description:
