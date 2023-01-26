@@ -1,2 +1,13 @@
-# services: 
-#   # app
+services:
+  dart_frog_app:
+    build: .
+    ports:
+      - "8080:8080"
+
+  neo4j:
+    platform: linux/x86_64
+    image: neo4j:3.0
+    ports:
+    - "17474:7474"
+    volumes:
+    - ./db/dbms:/data/dbms

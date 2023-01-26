@@ -4,32 +4,31 @@ import 'package:uuid/uuid.dart';
 
 /// An in-memory implementation of the [TodosDataSource] interface.
 class Neo4jTodosDataSource implements TodosDataSource {
-  /// initialization
+  /// initialization. Defaults to port 7474
   Neo4jTodosDataSource() {
-    NeoClient.withAuthorization(
-      username: 'neo4j',
-      password: '123456',
-    );
+    NeoClient.withoutCredentialsForTest(databaseAddress: 'http://0.0.0.0:7474/');
   }
+
+  final _db = NeoClient();
 
   @override
   Future<Todo> create(Todo todo) async {
     final id = const Uuid().v4();
     final createdTodo = todo.copyWith(id: id);
-    await NeoClient()
+    await _db
         .createNode(labels: ['Todo'], properties: createdTodo.toJson());
     return createdTodo;
   }
 
   @override
   Future<List<Todo>> readAll() async {
-    List<Node> todos = await NeoClient().findAllNodesByLabel('Todo');
+    List<Node> todos = await _db.findAllNodesByLabel('Todo');
     return todos.map((e) => Todo.fromJson(e.properties)).toList();
   }
 
   @override
   Future<Todo?> read(String id) async {
-    final todo = await NeoClient().findAllNodesByProperties(
+    final todo = await _db.findAllNodesByProperties(
       propertiesToCheck: [
         PropertyToCheck(key: 'id', comparisonOperator: '=', value: "'$id'")
       ],
@@ -39,23 +38,23 @@ class Neo4jTodosDataSource implements TodosDataSource {
 
   @override
   Future<Todo> update(String id, Todo todo) async {
-    final todoNode = await NeoClient().findAllNodesByProperties(
+    final todoNode = await _db.findAllNodesByProperties(
         propertiesToCheck: [
-          PropertyToCheck(key: 'id', comparisonOperator: '=', value: id)
+          PropertyToCheck(key: 'id', comparisonOperator: '=', value: "'$id'")
         ]);
     print('hello');
     print(todoNode.first.id);
-    final updatedNode = await NeoClient().updateNodeById(
+    final updatedNode = await _db.updateNodeById(
         nodeId: todoNode.first.id!, propertiesToAddOrUpdate: todo.toJson());
     return Todo.fromJson(updatedNode!.properties);
   }
 
   @override
   Future<void> delete(String id) async {
-    final todoNode = await NeoClient().findAllNodesByProperties(
+    final todoNode = await _db.findAllNodesByProperties(
         propertiesToCheck: [
           PropertyToCheck(key: 'id', comparisonOperator: '=', value: id)
         ]);
-    await NeoClient().deleteNodeById(todoNode.first.id!);
+    await _db.deleteNodeById(todoNode.first.id!);
   }
 }
