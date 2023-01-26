@@ -1,5 +1,5 @@
-name: in_memory_todos_data_source
-description: An in-memory implementation of the TodosDataSource interface.
+name: neo4j_todos_data_source
+description: An neo4j implementation of the TodosDataSource interface.
 version: 0.1.0+1
 publish_to: none
 
@@ -10,6 +10,7 @@ dependencies:
   todos_data_source:
     path: ../todos_data_source
   uuid: ^3.0.6
+  neo4driver: ^1.0.6
 
 dev_dependencies:
   mocktail: ^0.3.0
