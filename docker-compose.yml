@@ -2,7 +2,7 @@ services:
   dart_frog_app:
     build: .
     ports:
-      - "18080:8080"
+      - "8080:8080"
 
   neo4j:
     platform: linux/x86_64
@@ -10,5 +10,10 @@ services:
     ports:
     - "17474:7474"
     volumes:
-    - ./db/dbms:/data/dbms
+      - $HOME/neo4j/data:/data
+    environment:
+      - NEO4J_AUTH=none
+    
+
+
 

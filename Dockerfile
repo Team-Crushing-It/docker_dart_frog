@@ -6,10 +6,12 @@ WORKDIR /app
 
 # Copy Dependencies
 COPY packages/in_memory_todos_data_source ./packages/in_memory_todos_data_source
+COPY packages/neo4j_todos_data_source ./packages/neo4j_todos_data_source
 COPY packages/todos_data_source ./packages/todos_data_source
 
 # Install Dependencies
 RUN dart pub get -C packages/in_memory_todos_data_source
+RUN dart pub get -C packages/neo4j_todos_data_source
 RUN dart pub get -C packages/todos_data_source
 
 # Resolve app dependencies.
