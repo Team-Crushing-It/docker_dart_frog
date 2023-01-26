@@ -9,7 +9,5 @@ services:
     image: neo4j:3.0
     ports:
     - "17474:7474"
-    volumes:
-    - ./db/dbms:/data/dbms
     environment:
     - NEO4J_AUTH=neo4j/123456
