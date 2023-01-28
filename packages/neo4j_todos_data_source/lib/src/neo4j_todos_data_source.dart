@@ -2,11 +2,16 @@ import 'package:neo4driver/neo4driver.dart';
 import 'package:neo4j_todos_data_source/neo4j_todos_data_source.dart';
 import 'package:uuid/uuid.dart';
 
-/// An in-memory implementation of the [TodosDataSource] interface.
+/// An neo4j mplementation of the [TodosDataSource] interface.
 class Neo4jTodosDataSource implements TodosDataSource {
   /// initialization. Defaults to port 7474
   Neo4jTodosDataSource() {
-    NeoClient.withoutCredentialsForTest();
+
+    NeoClient.withAuthorization(
+      username: 'neo4j',
+      password: 'password',
+      databaseAddress: 'http://testneo4j:7474/',
+    );
   }
 
   final _db = NeoClient();
