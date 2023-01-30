@@ -9,6 +9,7 @@ FutureOr<Response> onRequest(RequestContext context, String id) async {
   final todo = await dataSource.read(id);
 
   if (todo == null) {
+    print('not found');
     return Response(statusCode: HttpStatus.notFound, body: 'Not found');
   }
 
@@ -28,6 +29,7 @@ FutureOr<Response> onRequest(RequestContext context, String id) async {
 }
 
 Future<Response> _get(RequestContext context, Todo todo) async {
+  print('get in id');
   return Response.json(body: todo);
 }
 

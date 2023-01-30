@@ -25,13 +25,13 @@ Future<HttpServer> createServer() async {
 Handler buildRootHandler() {
   final pipeline = const Pipeline().addMiddleware(middleware.middleware);
   final router = Router()
-    ..mount('/todos', (context) => buildTodosHandler()(context));
+    ..mount('/todos', (RequestContext context) => buildTodosHandler()(context));
   return pipeline.addHandler(router);
 }
 
 Handler buildTodosHandler() {
   final pipeline = const Pipeline();
   final router = Router()
-    ..all('/', (context) => todos_index.onRequest(context,))..all('/<id>', (context,id,) => todos_$id.onRequest(context,id,));
+    ..all('/', (RequestContext context) => todos_index.onRequest(context,))..all('/<id>', (RequestContext context, String id,) => todos_$id.onRequest(context,id,));
   return pipeline.addHandler(router);
 }

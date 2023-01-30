@@ -1,0 +1,23 @@
+services:
+  dart_frog_app:
+    build: .
+    ports:
+      - "8080:8080"
+
+  testneo4j:
+    # platform: linux/x86_64
+    image: neo4j:latest
+    ports:
+    - "7474:7474" 
+    - "7687:7687"
+    volumes:
+      - $HOME/neo4j/data:/data
+      - $HOME/neo4j/logs:/logs
+      - $HOME/neo4j/import:/var/lib/neo4j/import
+      - $HOME/neo4j/plugins:/plugins
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT= "yes"
+    
+
+
+
